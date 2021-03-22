@@ -6,7 +6,6 @@ import java.util.stream.Stream;
 import org.flab.base64.Base64;
 import org.flab.base64.support.Tuple;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
