@@ -9,25 +9,25 @@ import java.util.List;
  */
 class BinaryCutter {
 
-	public static List<String> cutWithPaddingZero(String binary, int cutLength) {
-		List<String> stringList = new ArrayList<>();
-		int endIdx = binary.length() - (binary.length() % cutLength);
-		for (int i = 0; i < endIdx; i+=cutLength) {
-			stringList.add(binary.substring(i, i + cutLength));
-		}
+    public static List<String> cutWithPaddingZero(String binary, int cutLength) {
+        List<String> stringList = new ArrayList<>();
+        int endIdx = binary.length() - (binary.length() % cutLength);
+        for (int i = 0; i < endIdx; i += cutLength) {
+            stringList.add(binary.substring(i, i + cutLength));
+        }
 
-		int rest = binary.length() % cutLength;
+        int rest = binary.length() % cutLength;
 
-		if (rest == 0) {
-			return stringList;
-		}
+        if (rest == 0) {
+            return stringList;
+        }
 
-		int startIdx = binary.length() / cutLength * cutLength;
+        int startIdx = binary.length() / cutLength * cutLength;
 
-		String lastCutBinary = binary.substring(startIdx, startIdx + rest)
-			+ "0".repeat(cutLength - rest);
+        String lastCutBinary = binary.substring(startIdx, startIdx + rest)
+            + "0".repeat(cutLength - rest);
 
-		stringList.add(lastCutBinary);
-		return stringList;
-	}
+        stringList.add(lastCutBinary);
+        return stringList;
+    }
 }

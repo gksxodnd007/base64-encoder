@@ -17,26 +17,26 @@ public class IntegerUtils {
 			byteSize = 2;
 		}
 
-		byte[] bytes=new byte[byteSize];
+		byte[] bytes = new byte[byteSize];
 
 		switch (byteSize) {
 			case 4:
-				bytes[0]=(byte)((value&0xFF000000)>>24);
-				bytes[1]=(byte)((value&0x00FF0000)>>16);
-				bytes[2]=(byte)((value&0x0000FF00)>>8);
-				bytes[3]=(byte) (value&0x000000FF);
+				bytes[0] = (byte)((value & 0xFF000000) >> 24);
+				bytes[1] = (byte)((value & 0x00FF0000) >> 16);
+				bytes[2] = (byte)((value & 0x0000FF00) >> 8);
+				bytes[3] = (byte)(value & 0x000000FF);
 				break;
 			case 3:
-				bytes[0]=(byte)((value&0x00FF0000)>>16);
-				bytes[1]=(byte)((value&0x0000FF00)>>8);
-				bytes[2]=(byte) (value&0x000000FF);
+				bytes[0] = (byte)((value & 0x00FF0000) >> 16);
+				bytes[1] = (byte)((value & 0x0000FF00) >> 8);
+				bytes[2] = (byte)(value & 0x000000FF);
 				break;
 			case 2:
-				bytes[0]=(byte)((value&0x0000FF00)>>8);
-				bytes[1]=(byte) (value&0x000000FF);
+				bytes[0] = (byte)((value & 0x0000FF00) >> 8);
+				bytes[1] = (byte)(value & 0x000000FF);
 				break;
 			case 1:
-				bytes[0]=(byte) (value&0x000000FF);
+				bytes[0] = (byte)(value & 0x000000FF);
 				break;
 		}
 
