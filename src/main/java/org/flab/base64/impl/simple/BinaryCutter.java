@@ -9,7 +9,7 @@ import java.util.List;
  */
 class BinaryCutter {
 
-	public static List<String> cut(String binary, int cutLength) {
+	public static List<String> cutWithPaddingZero(String binary, int cutLength) {
 		List<String> stringList = new ArrayList<>();
 		int endIdx = binary.length() - (binary.length() % cutLength);
 		for (int i = 0; i < endIdx; i+=cutLength) {

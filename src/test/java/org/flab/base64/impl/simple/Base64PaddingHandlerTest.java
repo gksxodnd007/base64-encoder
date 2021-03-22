@@ -1,7 +1,15 @@
 package org.flab.base64.impl.simple;
 
+import java.util.stream.Stream;
+
+import org.flab.base64.support.Tuple;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.ArgumentsProvider;
+import org.junit.jupiter.params.provider.ArgumentsSource;
 
 /**
  * @author taewoong.han
@@ -79,5 +87,31 @@ public class Base64PaddingHandlerTest {
 
 		//then
 		Assertions.assertEquals("ABC", actual);
+	}
+
+	@ParameterizedTest
+	@ArgumentsSource(CountPaddingTestInputProvider.class)
+	void countPaddingTest(Tuple<String, Integer> argument) {
+		//given
+		String input = argument.input;
+
+		//when
+		int actual = Base64PaddingHandler.countPaddingCharacter(input);
+
+		//then
+		Assertions.assertEquals(argument.expect, actual);
+	}
+
+	static class CountPaddingTestInputProvider implements ArgumentsProvider {
+
+		@Override
+		public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception {
+			return Stream.of(
+				Arguments.of(new Tuple<>("argument==", 2)),
+				Arguments.of(new Tuple<>("argument=", 1)),
+				Arguments.of(new Tuple<>("argument", 0)),
+				Arguments.of(new Tuple<>("argument=if", 0))
+			);
+		}
 	}
 }

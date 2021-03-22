@@ -26,8 +26,8 @@ public class SimpleBase64 implements Base64 {
 	public String encode(String source, Charset charset) {
 		StringBuilder builder = new StringBuilder();
 		String binary = BinaryConverter.toBinary(source, charset);
-		BinaryCutter.cut(binary, CUT_LENGTH)
-			.forEach(base64Binary -> builder.append(Base64Index.binaryIndex.get(base64Binary)));
+		BinaryCutter.cutWithPaddingZero(binary, CUT_LENGTH)
+			.forEach(base64Binary -> builder.append(Base64Index.binaryKeyIndex.get(base64Binary)));
 
 		builder.append("=".repeat(Base64PaddingHandler.calculateNeedPaddingCharacterNumber(source)));
 
@@ -40,7 +40,7 @@ public class SimpleBase64 implements Base64 {
 
 		Arrays.stream(source.split(""))
 			.filter(str -> !str.equals("="))
-			.map(Base64Index.stringIndex::get)
+			.map(Base64Index.characterKeyIndex::get)
 			.forEach(builder::append);
 
 		int paddingCount = Base64PaddingHandler.countPaddingCharacter(source);
@@ -65,8 +65,8 @@ public class SimpleBase64 implements Base64 {
 
 	private static class Base64Index {
 
-		private static final Map<String, String> binaryIndex = new HashMap<>();
-		private static final Map<String, String> stringIndex = new HashMap<>();
+		private static final Map<String, String> binaryKeyIndex = new HashMap<>();
+		private static final Map<String, String> characterKeyIndex = new HashMap<>();
 
 		static {
 			String fileName = "base64-index.txt";
@@ -82,8 +82,8 @@ public class SimpleBase64 implements Base64 {
 				in.lines()
 					.forEach(line -> {
 						String[] splittedLine = line.split(",");
-						binaryIndex.put(splittedLine[0], splittedLine[1]);
-						stringIndex.put(splittedLine[1], splittedLine[0]);
+						binaryKeyIndex.put(splittedLine[0], splittedLine[1]);
+						characterKeyIndex.put(splittedLine[1], splittedLine[0]);
 					});
 
 			} catch (IOException e) {
